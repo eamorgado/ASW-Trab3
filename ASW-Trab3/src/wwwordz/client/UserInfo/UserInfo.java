@@ -1,28 +1,27 @@
 package wwwordz.client.UserInfo;
 
 public class UserInfo {
-	private String nick;
-	private String pass;
-	private UserInfo instance = null;
+	private static String nick = "";
+	private static String pass = "";
 	
-	private UserInfo() {}
-	
-	public UserInfo getInstance() {
-		if(instance == null)
-			instance = new UserInfo();
-		return instance;
+	public static String getNick() {
+		return nick;
 	}
 	
-	public void setNick(String nick) {
-		this.nick = nick;
+	public static String getPass() {
+		return pass;
 	}
 	
-	public void setPass(String pass) {
-		this.pass = pass;
+	public static void setNick(String n) {
+		nick = n;
 	}
 	
-	public void setCredentials(String nick,String pass) {
-		this.setNick(nick);
-		this.setPass(pass);
+	public static void setPass(String p) {
+		pass = p;
+	}
+	
+	public static void setCredentials(String n,String p) {
+		nick = "" + n;
+		pass = "" + p;
 	}
 }

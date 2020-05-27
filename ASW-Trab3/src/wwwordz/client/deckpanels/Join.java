@@ -10,8 +10,11 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import wwwordz.client.UserInfo.UserInfo;
 
 public class Join extends Composite{
 	public Join(final DeckPanel deck) {
@@ -23,26 +26,22 @@ public class Join extends Composite{
 		FlexTable table = new FlexTable();
 		table.addStyleName("tableWithRowsDelimiter");
 		
-		table.setText(0,0,"Nick:");
-		table.setText(1,0,"Password:");
+		Label lb = new Label("Nick:");
+		table.setWidget(0,0,lb);
 		
-		TextBox tb = new TextBox();
-	    tb.getElement().setPropertyString("placeholder", "Enter your nick name");
-	    
-	    PasswordTextBox pb = new PasswordTextBox();
-	    pb.getElement().setPropertyString("placeholder", "Enter your password");
-	    
-	    
-	    table.setWidget(0,1,tb);
-	    table.setWidget(1,1,pb);
-	    
-	    table.getFlexCellFormatter().setColSpan(0,0,2);
-	    table.getFlexCellFormatter().setColSpan(1,0,2);
+		lb = new Label(""+UserInfo.getNick());
+		table.setWidget(0,1,lb);
+		
+		lb = new Label("Pass:");
+		table.setWidget(1,0,lb);
+		
+		lb = new Label(""+UserInfo.getPass());
+		table.setWidget(1,1,lb);
 	    
 		vp.add(table);	
 		
 		
-		Label lb = new Label();
+		lb = new Label();
 		lb.setWidth("50%");
 		lb.addStyleName("bottomBorder");
 		
@@ -51,6 +50,7 @@ public class Join extends Composite{
 		Button log = new Button("Exit");
 	    log.addClickHandler(new ClickHandler() {
 	    	public void onClick(ClickEvent event) {
+	    		RootPanel.get("deck_description").getElement().setInnerHTML("Login");
 	    		deck.showWidget(0);
 	    	}
 	    });

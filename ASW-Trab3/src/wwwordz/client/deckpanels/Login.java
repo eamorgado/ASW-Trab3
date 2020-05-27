@@ -15,8 +15,11 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import wwwordz.client.UserInfo.UserInfo;
 
 public class Login extends Composite{
 	public Login(final DeckPanel deck){
@@ -32,11 +35,11 @@ public class Login extends Composite{
 		table.setText(1,0,"Password:");
 		
 	    
-		TextBox tb = new TextBox();
+		final TextBox tb = new TextBox();
 	    tb.getElement().setPropertyString("placeholder", "Enter your nick name");
 	    tb.getElement().setId("login-nick");
 	    
-	    PasswordTextBox pb = new PasswordTextBox();
+	    final PasswordTextBox pb = new PasswordTextBox();
 	    pb.getElement().setPropertyString("placeholder", "Enter your password");
 	    pb.getElement().setId("login-pass");
 	    
@@ -55,19 +58,21 @@ public class Login extends Composite{
 		lb.addStyleName("bottomBorder");
 		
 		vp.add(lb);
-	    
 		Button log = new Button("Login");
 	    log.addClickHandler(new ClickHandler() {
 	    	public void onClick(ClickEvent event) {
 	    		//Check for form completion
-	    		TextBox nick = TextBox.wrap(Document.get().getElementById("login-nick"));
-	    		TextBox pass = TextBox.wrap(Document.get().getElementById("login-pass"));
-	    		boolean cond = nick.getText().equals("") || pass.getText().equals("");
-	    		Window.alert(""+cond);
+	    		String nick = tb.getText();
+	    		String pass = pb.getText();
+	    		boolean cond = nick.equals("") || pass.equals("");
 	    		if(cond)
 	    			Window.alert("All fields must be filled");
-	    		//Send request for register
-	    		deck.showWidget(1);
+	    		else {
+	    			//Send request for register
+	    			UserInfo.setCredentials(nick,pass);
+	    			RootPanel.get("deck_description").getElement().setInnerHTML("Join");
+	    			deck.showWidget(1);
+	    		}
 	    	}
 	    });    
 	    log.getElement().getStyle().setProperty("margin", "5%");
