@@ -1,5 +1,6 @@
 package wwwordz.client;
 
+import wwwordz.client.deckpanels.Login;
 import wwwordz.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -41,8 +42,10 @@ public class ASW_Trab3 implements EntryPoint {
 	public void onModuleLoad() {
 		DeckLayoutPanel deck = new DeckLayoutPanel();
 		Login log = new Login();
-		deck.add(log);
-		RootPanel.get("login").add(deck);
+		log.genPanel();
+		deck.add(log.getPanel());
+		RootPanel.get("loginP").add(deck);
+		RootPanel.get("loginP").add(new Label("bye"));
 		/*final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
