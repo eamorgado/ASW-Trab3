@@ -6,12 +6,15 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import wwwordz.shared.Configs;
 
 
 public class JoinPage extends Composite {
@@ -23,9 +26,11 @@ public class JoinPage extends Composite {
 	}
 	
 	@UiField (provided=true)Button join_leave;
+	@UiField (provided=true)Button join_game;
 	
 	public JoinPage(final DeckPanel deck) {
 		setupLeave(deck);
+		setupJoin(deck);
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
@@ -37,5 +42,25 @@ public class JoinPage extends Composite {
 	    		deck.showWidget(0);
 	    	}
 	    });
+	}
+	
+	private void setupJoin(final DeckPanel deck) {
+		join_game = new Button();
+		join_game.addClickHandler(new ClickHandler() {
+	    	public void onClick(ClickEvent event) {
+    			serverJoin(deck);
+	    	}
+	    });
+	}
+	
+	private void serverJoin(final DeckPanel deck) {
+		Timer t = new Timer() {
+			@Override
+			public void run() {
+				deck.showWidget(2);
+			}
+		};
+		Window.alert("Wait untill join stage ends");
+		t.schedule((int) Configs.JOIN_STAGE_DURATION);
 	}
 }

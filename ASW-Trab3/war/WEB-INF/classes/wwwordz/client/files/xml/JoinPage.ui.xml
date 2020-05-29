@@ -19,13 +19,29 @@
 		background-color: red;
   		color: white;
 	}
+	.join-button{
+		color: white;
+		margin-top: 5%;
+		background-color: grey;
+		padding: 2% 5%;
+		border-radius: 10px;
+		transition-duration: 0.4s;
+		border: 2px solid black;
+	}
+	.join-button:hover{
+		background-color: white;
+  		color: black;
+	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.join-style}">
 		<h2>Join</h2>
 		<div align="center">
-			<div align="right">
+			<p>
 				<g:Button ui:field="join_leave" styleName="{style.leave-button}">Leave</g:Button>
-			</div>
+			</p>
+			<p>
+				<g:Button ui:field="join_game" styleName="{style.join-button}">Join game</g:Button>
+			</p>
 		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

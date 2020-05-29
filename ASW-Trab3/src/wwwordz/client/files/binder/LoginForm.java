@@ -101,7 +101,8 @@ public class LoginForm extends Composite {
 	private void serverRegister(final String nick, String pass, final DeckPanel deck) throws WWWordzException {
 		Services.getService().register(nick,pass, new AsyncCallback<Long>() {
 			public void onFailure(Throwable caught) {
-				Window.alert("Auth fail, maybe game is running");
+				Window.alert("ERROR:\n"+caught.getMessage());
+				
 			}
 
 			public void onSuccess(Long result) {
@@ -109,7 +110,7 @@ public class LoginForm extends Composite {
 			      @Override
 			      public void run() {
 			    	  RootPanel.get("user_info").add(new UserInfo(nick));
-		    		deck.showWidget(1);
+			    	  deck.showWidget(1);
 			      }
 			    };
 
