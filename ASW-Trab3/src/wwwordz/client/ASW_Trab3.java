@@ -40,13 +40,7 @@ public class ASW_Trab3 implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		DeckLayoutPanel deck = new DeckLayoutPanel();
-		Login log = new Login();
-		log.genPanel();
-		deck.add(log.getPanel());
-		RootPanel.get("loginP").add(deck);
-		RootPanel.get("loginP").add(new Label("bye"));
-		/*final Button sendButton = new Button("Send");
+		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
 		final Label errorLabel = new Label();
@@ -91,21 +85,19 @@ public class ASW_Trab3 implements EntryPoint {
 				sendButton.setFocus(true);
 			}
 		});
-
-		*/
 		
 		// Create a handler for the sendButton and nameField
-		/*class MyHandler implements ClickHandler, KeyUpHandler {
+		class MyHandler implements ClickHandler, KeyUpHandler {
 			/**
 			 * Fired when the user clicks on the sendButton.
-			 /
+			 */
 			public void onClick(ClickEvent event) {
 				sendNameToServer();
 			}
 
 			/**
 			 * Fired when the user types in the nameField.
-			 /
+			 */
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 					sendNameToServer();
@@ -114,7 +106,7 @@ public class ASW_Trab3 implements EntryPoint {
 
 			/**
 			 * Send the name from the nameField to the server and wait for a response.
-			 /
+			 */
 			private void sendNameToServer() {
 				// First, we validate the input.
 				errorLabel.setText("");
@@ -153,5 +145,5 @@ public class ASW_Trab3 implements EntryPoint {
 		MyHandler handler = new MyHandler();
 		sendButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
-	*/}
+	}
 }

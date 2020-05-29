@@ -1,3 +1,7 @@
+*.class
+# output path configured in .classpath
+bin/
+
 # gwt caches and compiled units #
 war/gwt_bree/
 gwt-unitCache/

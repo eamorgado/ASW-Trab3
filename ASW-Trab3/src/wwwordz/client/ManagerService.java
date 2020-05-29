@@ -2,6 +2,7 @@ package wwwordz.client;
 
 import java.util.List;
 
+import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import wwwordz.shared.Puzzle;
@@ -16,7 +17,7 @@ import wwwordz.shared.WWWordzException;
  * @since May 2020
  */
 @RemoteServiceRelativePath("game")
-public interface ManagerService {
+public interface ManagerService extends RemoteService{
 	Puzzle getPuzzle() throws WWWordzException;
 	List<Rank> getRanking() throws WWWordzException;
 	long register(String nick, String password) throws WWWordzException;

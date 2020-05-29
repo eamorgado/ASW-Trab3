@@ -1,0 +1,39 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.table-style {		
+		padding-bottom: 5%;
+	}
+	.login-style{
+		font-size: large;
+	}
+	.bottomBorder{
+		border-bottom: 4px solid gray;
+	}
+	.login-button{
+		color: white;
+		margin-top: 5%;
+		background-color: grey;
+		padding: 2% 5%;
+		border-radius: 10px;
+		transition-duration: 0.4s;
+		border: 2px solid black;
+	}
+	.login-button:hover{
+		background-color: white;
+  		color: black;
+	}
+	</ui:style>
+	
+	<g:HTMLPanel styleName="{style.login-style}">
+		<h2 align="center">Login</h2>
+		<div align="center">
+			<g:VerticalPanel ui:field="vp">
+				<g:FlexTable ui:field="table" styleName="{style.table-style}"/>
+				<g:Label styleName="{style.bottomBorder}" width="50%"></g:Label>
+				<g:Button ui:field="login_b" styleName="{style.login-button}">Login</g:Button>
+			</g:VerticalPanel>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

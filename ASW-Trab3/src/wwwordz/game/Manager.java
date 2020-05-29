@@ -44,7 +44,7 @@ public class Manager implements ManagerService {
 	 * Single instance of Manager
 	 * @return Manager instance
 	 */
-	static Manager getInstance() {
+	public static Manager getInstance() {
 		if(manager == null) manager = new Manager();
 		return manager;
 	}

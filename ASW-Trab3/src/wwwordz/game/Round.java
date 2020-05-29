@@ -201,14 +201,14 @@ public class Round {
 	/**
 	 * Change join stage
 	 */
-	static void setJoinStageDuration(long joinStageDuration) {
+	public static void setJoinStageDuration(long joinStageDuration) {
 		Durations.JOIN.setStageDuration(joinStageDuration);
 	}
 	
 	/**
 	 * Change play stage
 	 */
-	static void setPlayStageDuration(long playStageDuration) {
+	public static void setPlayStageDuration(long playStageDuration) {
 		Durations.PLAY.setStageDuration(playStageDuration);
 	}
 	
@@ -230,14 +230,14 @@ public class Round {
 	/**
 	 * Change ranking stage
 	 */
-	static void setRankingStageSuration(long rankingStageDuration) {
+	public static void setRankingStageSuration(long rankingStageDuration) {
 		Durations.RANKING.setStageDuration(rankingStageDuration);
 	}
 	
 	/**
 	 * Change report stage
 	 */
-	static void setReportStageDuration(long reportStageDuration) {
+	public static void setReportStageDuration(long reportStageDuration) {
 		Durations.REPORT.setStageDuration(reportStageDuration);
 	}
 	

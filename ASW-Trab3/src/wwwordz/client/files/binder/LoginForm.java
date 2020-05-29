@@ -1,10 +1,11 @@
-package wwwordz.client.deckpanels;
+package wwwordz.client.files.binder;
 
-import com.google.gwt.dom.client.Document;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -12,34 +13,52 @@ import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
-import wwwordz.client.UserInfo.UserInfo;
+public class LoginForm extends Composite {
 
-public class Login extends Composite{
-	public Login(final DeckPanel deck){
-		VerticalPanel vp = new VerticalPanel();
+	private static LoginFormUiBinder uiBinder = GWT.create(LoginFormUiBinder.class);
+	
+	@UiTemplate("wwwordz.client.files.xml.LoginForm.ui.xml")
+	interface LoginFormUiBinder extends UiBinder<Widget, LoginForm> {
+	}
+	
+	
+	@UiField (provided=true)FlexTable table;	
+	@UiField (provided=true)VerticalPanel vp;
+	@UiField (provided=true)Button login_b;
+	private TextBox tb;
+	private PasswordTextBox pb;
+	
+	public LoginForm(final DeckPanel deck) {
+		setupVerticalPanel();
+		setupTable();
+		setupButton(deck);
+		initWidget(uiBinder.createAndBindUi(this));
+	}
+	
+	private void setupVerticalPanel() {
+		vp = new VerticalPanel();
 		vp.setWidth("50%"); vp.setHeight("50%");
 		vp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		vp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		
-		FlexTable table = new FlexTable();
-		table.addStyleName("tableWithRowsDelimiter");
-		
+	}
+	
+	private void setupTable() {
+		table = new FlexTable();
 		table.setText(0,0,"Nick:");
 		table.setText(1,0,"Password:");
 		
 	    
-		final TextBox tb = new TextBox();
+		tb = new TextBox();
 	    tb.getElement().setPropertyString("placeholder", "Enter your nick name");
 	    tb.getElement().setId("login-nick");
 	    
-	    final PasswordTextBox pb = new PasswordTextBox();
+	    pb = new PasswordTextBox();
 	    pb.getElement().setPropertyString("placeholder", "Enter your password");
 	    pb.getElement().setId("login-pass");
 	    
@@ -49,17 +68,11 @@ public class Login extends Composite{
 	    
 	    table.getFlexCellFormatter().setColSpan(0,0,2);
 	    table.getFlexCellFormatter().setColSpan(1,0,2);
-	    
-		vp.add(table);	
-		
-		
-		Label lb = new Label();
-		lb.setWidth("50%");
-		lb.addStyleName("bottomBorder");
-		
-		vp.add(lb);
-		Button log = new Button("Login");
-	    log.addClickHandler(new ClickHandler() {
+	}
+	
+	private void setupButton(final DeckPanel deck) {
+		login_b = new Button();
+		login_b.addClickHandler(new ClickHandler() {
 	    	public void onClick(ClickEvent event) {
 	    		//Check for form completion
 	    		String nick = tb.getText();
@@ -69,17 +82,16 @@ public class Login extends Composite{
 	    			Window.alert("All fields must be filled");
 	    		else {
 	    			//Send request for register
-	    			UserInfo.setCredentials(nick,pass);
-	    			RootPanel.get("deck_description").getElement().setInnerHTML("Join");
+	    			RootPanel.get("user_info").add(new UserInfo(nick));
 	    			deck.showWidget(1);
+	    			/*try {
+						//serverRegister(nick,pass,deck);
+					} catch (WWWordzException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}*/
 	    		}
 	    	}
-	    });    
-	    log.getElement().getStyle().setProperty("margin", "5%");
-	    log.getElement().getStyle().setProperty("padding", "2% 5% 2% 5%");
-	    
-	    vp.add(log);
-		
-	    initWidget(vp);
+	    });
 	}
 }

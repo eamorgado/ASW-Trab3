@@ -1,0 +1,13 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.user-style{
+		font-size: large;
+		margin-left: 3%;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.user-style}">
+		<g:Label ui:field="user"></g:Label>
+	</g:HTMLPanel>
+</ui:UiBinder> 
