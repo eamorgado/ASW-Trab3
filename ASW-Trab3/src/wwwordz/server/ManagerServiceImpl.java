@@ -32,14 +32,12 @@ public class ManagerServiceImpl extends RemoteServiceServlet implements ManagerS
 	
 	@Override
 	public Puzzle getPuzzle() throws WWWordzException {
-		// TODO Auto-generated method stub
-		return null;
+		return Manager.getInstance().getPuzzle();
 	}
 
 	@Override
 	public List<Rank> getRanking() throws WWWordzException {
-		// TODO Auto-generated method stub
-		return null;
+		return Manager.getInstance().getRanking();
 	}
 
 	@Override
@@ -49,14 +47,12 @@ public class ManagerServiceImpl extends RemoteServiceServlet implements ManagerS
 
 	@Override
 	public void setPoints(String nick, int points) throws WWWordzException {
-		// TODO Auto-generated method stub
-		
+		Manager.getInstance().setPoints(nick,points);
 	}
 
 	@Override
 	public long timeToNextPlay() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Manager.getInstance().timeToNextPlay();
 	}
 
 }

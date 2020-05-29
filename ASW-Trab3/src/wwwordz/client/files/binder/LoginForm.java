@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -104,8 +105,15 @@ public class LoginForm extends Composite {
 			}
 
 			public void onSuccess(Long result) {
-				RootPanel.get("user_info").add(new UserInfo(nick));
-    			deck.showWidget(1);
+				Timer t = new Timer() {
+			      @Override
+			      public void run() {
+			    	  RootPanel.get("user_info").add(new UserInfo(nick));
+		    		deck.showWidget(1);
+			      }
+			    };
+
+			    t.schedule(result.intValue());
 			}
 		});
 	}
