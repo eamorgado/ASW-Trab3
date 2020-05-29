@@ -6,7 +6,7 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
   <!-- Servlets -->
-  <!--
+  
   <servlet>
     <servlet-name>managerServlet</servlet-name>
     <servlet-class>wwwordz.server.ManagerServiceImpl</servlet-class>
@@ -16,7 +16,7 @@
     <servlet-name>managerServlet</servlet-name>
     <url-pattern>/asw_trab3/game</url-pattern>
   </servlet-mapping>
-  -->
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>ASW_Trab3.html</welcome-file>

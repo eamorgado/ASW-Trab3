@@ -18,9 +18,9 @@ import wwwordz.shared.WWWordzException;
  */
 @RemoteServiceRelativePath("game")
 public interface ManagerService extends RemoteService{
-	Puzzle getPuzzle() throws WWWordzException;
-	List<Rank> getRanking() throws WWWordzException;
-	long register(String nick, String password) throws WWWordzException;
-	void setPoints(String nick, int points) throws WWWordzException;
-	long timeToNextPlay();
+	public Puzzle getPuzzle() throws WWWordzException;
+	public List<Rank> getRanking() throws WWWordzException;
+	public long register(String nick, String password) throws WWWordzException;
+	public void setPoints(String nick, int points) throws WWWordzException;
+	public long timeToNextPlay();
 }

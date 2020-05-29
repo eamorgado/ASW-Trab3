@@ -7,6 +7,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
@@ -18,6 +19,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import wwwordz.client.Services;
+import wwwordz.shared.WWWordzException;
 
 public class LoginForm extends Composite {
 
@@ -82,16 +86,27 @@ public class LoginForm extends Composite {
 	    			Window.alert("All fields must be filled");
 	    		else {
 	    			//Send request for register
-	    			RootPanel.get("user_info").add(new UserInfo(nick));
-	    			deck.showWidget(1);
-	    			/*try {
-						//serverRegister(nick,pass,deck);
+	    			try {
+						serverRegister(nick,pass,deck);
 					} catch (WWWordzException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}*/
+					}
 	    		}
 	    	}
 	    });
+	}
+	
+	private void serverRegister(final String nick, String pass, final DeckPanel deck) throws WWWordzException {
+		Services.getService().register(nick,pass, new AsyncCallback<Long>() {
+			public void onFailure(Throwable caught) {
+				Window.alert("Auth fail, maybe game is running");
+			}
+
+			public void onSuccess(Long result) {
+				RootPanel.get("user_info").add(new UserInfo(nick));
+    			deck.showWidget(1);
+			}
+		});
 	}
 }

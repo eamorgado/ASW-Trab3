@@ -1,11 +1,14 @@
 package wwwordz.client;
 
-import com.google.gwt.core.client.GWT;
 
 public class Services {
-	private final static ManagerServiceAsync managerService = GWT.create(ManagerService.class);
+	private static ManagerServiceAsync managerService;
 	
 	public static ManagerServiceAsync getService() {
 		return managerService;
+	}
+	
+	public static void addService(ManagerServiceAsync service) {
+		managerService = service;
 	}
 }
