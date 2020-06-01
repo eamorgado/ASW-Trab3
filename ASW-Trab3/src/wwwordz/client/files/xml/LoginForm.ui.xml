@@ -35,5 +35,8 @@
 				<g:Button ui:field="login_b" styleName="{style.login-button}">Login</g:Button>
 			</g:VerticalPanel>
 		</div>
+		<div>
+			Fill with your credentials and wait until join phase ends to star the game
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

@@ -15,6 +15,7 @@ import wwwordz.client.files.binder.LoginForm;
  */
 public class ClientEndpoint  implements EntryPoint{
 	private final ManagerServiceAsync managerService = GWT.create(ManagerService.class);
+	
 	@Override
 	public void onModuleLoad() {
 		Services.addService(managerService);

@@ -13,6 +13,15 @@ import com.google.gwt.user.client.ui.Widget;
 import wwwordz.shared.Table;
 import wwwordz.shared.Table.Cell;
 
+/**
+ * This class build the interactive table, given a Table
+ * 	it will for each cell build a TableButton with the cell's 
+ * 	letter, row and col
+ * 
+ * @author Eduardo Morgado (up201706894)
+ * @author Ângelo Gomes (up201703990)
+ * @since May 2020
+ */
 public class TableLayout extends Composite {
 
 	private static TableLayoutUiBinder uiBinder = GWT.create(TableLayoutUiBinder.class);

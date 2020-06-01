@@ -19,6 +19,15 @@ import wwwordz.shared.Configs;
 import wwwordz.shared.Rank;
 import wwwordz.shared.WWWordzException;
 
+/**
+ * This class handles the ranking stage
+ * 
+ * It will ask the server to get ranks and will build a table from them
+ * 
+ * @author Eduardo Morgado (up201706894)
+ * @author Ângelo Gomes (up201703990)
+ * @since May 2020
+ */
 public class RankingStage extends Composite{
 
 	private static RankingStageUiBinder uiBinder = GWT.create(RankingStageUiBinder.class);
@@ -31,6 +40,7 @@ public class RankingStage extends Composite{
 	
 	public RankingStage() {
 		table = new FlexTable();
+		//add timer to restart entire game
 		end();
 		try {
 			getRanking();
@@ -41,6 +51,9 @@ public class RankingStage extends Composite{
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
+	/**
+	 * This method times the ranking stage and will them restart the client app once the round ends
+	 */
 	private void end() {
 		Timer t = new Timer() {
 			@Override
@@ -57,6 +70,15 @@ public class RankingStage extends Composite{
 		Services.getService().getRanking(new RankingCallBack());
 	}
 	
+	/**
+	 * This class handles the ranking request response
+	 * 
+	 * It also build the rank table
+	 * 
+	 * @author Eduardo Morgado (up201706894)
+	 * @author Ângelo Gomes (up201703990)
+	 * @since May 2020
+	 */
 	class RankingCallBack implements AsyncCallback<List<Rank>>{
 
 		@Override

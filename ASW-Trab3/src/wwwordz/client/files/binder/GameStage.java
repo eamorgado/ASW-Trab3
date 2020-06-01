@@ -23,6 +23,17 @@ import wwwordz.shared.Puzzle;
 import wwwordz.shared.Table;
 import wwwordz.shared.WWWordzException;
 
+
+/**
+ * This class handles the game stage, on start it will load/init all the panels
+ * 
+ * 	Performs RPC request to retrieve the puzzle which will then pass to 
+ * 		TableLayout to generate the interactible table
+ * 
+ * @author Eduardo Morgado (up201706894)
+ * @author Ângelo Gomes (up201703990)
+ * @since May 2020
+ */
 public class GameStage extends Composite {
 
 	private static GameStageUiBinder uiBinder = GWT.create(GameStageUiBinder.class);
@@ -35,6 +46,8 @@ public class GameStage extends Composite {
 	@UiField (provided=true)VerticalPanel words;
 	@UiField (provided=true)VerticalPanel panel;
 	@UiField (provided=true)VerticalPanel messages;
+	
+	
 	public GameStage() {
 		RootPanel.get("deck_panel").remove(0);
 		initPanels();
@@ -55,16 +68,25 @@ public class GameStage extends Composite {
 		addTablePanel();
 	}
 	
+	/**
+	 * This method initiates the hz panel to display current selected sequence of letters
+	 */
 	private void addSequencePanel() {
 		sequence = new HorizontalPanel();
 		sequence.getElement().setId("sequence");
 	}
 	
+	/**
+	 * Initiate vp to display all submited words (error: first does not show)
+	 */
 	private void addSumbittedWords() {
 		words = new VerticalPanel();
 		words.getElement().setId("words");
 	}
 	
+	/**
+	 * Displays all submission errors (either solution does not exist or was already given)
+	 */
 	private void addSubmitErrors() {
 		messages = new VerticalPanel();
 		messages.getElement().setId("messages");
@@ -75,6 +97,10 @@ public class GameStage extends Composite {
 		panel.getElement().setId("game_panel");
 	}
 		
+	/**
+	 * Performs RPC request to get the puzzle
+	 * @throws WWWordzException
+	 */
 	private void getPuzzle() throws WWWordzException {
 		Services.getService().getPuzzle(new AsyncCallback<Puzzle>() {
 			@Override
@@ -93,11 +119,17 @@ public class GameStage extends Composite {
 		});
 	}
 	
+	/**
+	 * After getting the puzzle this method calls the interactive build
+	 */
 	private void buildPuzzle() {
 		Table game_table = GameMechanics.getInstance().getTable();
 		panel.add(new TableLayout(game_table));
 	}
 	
+	/**
+	 * This method handles the report functionality and timming
+	 */
 	private void addReport() {
 		Timer t = new Timer() {
 			@Override
@@ -115,12 +147,23 @@ public class GameStage extends Composite {
 		t.schedule((int)Configs.PLAY_STAGE_DURATION);
 	}
 	
+	/**
+	 * This method performs the report action sending all the user points for this session
+	 * @throws WWWordzException
+	 */
 	private void report() throws WWWordzException {
 		String nick = Services.getNick();
 		int points = GameMechanics.getInstance().getTotalPoints();
 		Services.getService().setPoints(nick,points, new ReportCallBack(new Date()));
 	}
 	
+	/**
+	 * Handler class for report request, on success it will launch ranking stage
+	 * 
+	 * @author Eduardo Morgado (up201706894)
+	 * @author Ângelo Gomes (up201703990)
+	 * @since May 2020
+	 */
 	class ReportCallBack implements AsyncCallback<Void>{
 		private Date start_callback;
 		

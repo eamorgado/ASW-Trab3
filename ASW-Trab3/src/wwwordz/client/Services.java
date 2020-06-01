@@ -1,6 +1,13 @@
 package wwwordz.client;
 
-
+/**
+ * A basic auxiliar class to store our ManagerServiceAsync instance and
+ * 	user nick info
+ * 
+ * @author Eduardo Morgado (up201706894)
+ * @author Ângelo Gomes (up201703990)
+ * @since May 2020
+ */
 public class Services {
 	private static ManagerServiceAsync managerService;
 	private static String nick;
@@ -18,9 +25,5 @@ public class Services {
 	
 	public static String getNick() {
 		return nick;
-	}
-	
-	public static void reportStage() {
-		
 	}
 }

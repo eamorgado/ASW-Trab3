@@ -23,6 +23,15 @@ import com.google.gwt.user.client.ui.Widget;
 import wwwordz.client.Services;
 import wwwordz.shared.WWWordzException;
 
+/**
+ * This class handles login stage
+ * 
+ * Displays credential text boxes and validates/verifies fields before submission
+ * 
+ * @author Eduardo Morgado (up201706894)
+ * @author Ângelo Gomes (up201703990)
+ * @since May 2020
+ */
 public class LoginForm extends Composite {
 
 	private static LoginFormUiBinder uiBinder = GWT.create(LoginFormUiBinder.class);
@@ -52,6 +61,9 @@ public class LoginForm extends Composite {
 		vp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	}
 	
+	/**
+	 * Method to display required fields
+	 */
 	private void setupTable() {
 		table = new FlexTable();
 		table.setText(0,0,"Nick:");
@@ -74,6 +86,9 @@ public class LoginForm extends Composite {
 	    table.getFlexCellFormatter().setColSpan(1,0,2);
 	}
 	
+	/**
+	 * Method to add login button functionality
+	 */
 	private void setupButton() {
 		login_b = new Button();
 		login_b.addClickHandler(new ClickHandler() {
@@ -97,6 +112,12 @@ public class LoginForm extends Composite {
 	    });
 	}
 	
+	/**
+	 * Method that performs login/join request
+	 * @param nick
+	 * @param pass
+	 * @throws WWWordzException
+	 */
 	private void serverRegister(final String nick, String pass) throws WWWordzException {
 		Services.getService().register(nick,pass, new AsyncCallback<Long>() {
 			public void onFailure(Throwable caught) {
