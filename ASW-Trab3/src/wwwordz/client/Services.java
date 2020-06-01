@@ -19,4 +19,8 @@ public class Services {
 	public static String getNick() {
 		return nick;
 	}
+	
+	public static void reportStage() {
+		
+	}
 }

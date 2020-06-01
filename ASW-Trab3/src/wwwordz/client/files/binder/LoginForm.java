@@ -11,7 +11,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -39,10 +38,10 @@ public class LoginForm extends Composite {
 	private TextBox tb;
 	private PasswordTextBox pb;
 	
-	public LoginForm(final DeckPanel deck) {
+	public LoginForm() {
 		setupVerticalPanel();
 		setupTable();
-		setupButton(deck);
+		setupButton();
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
@@ -75,7 +74,7 @@ public class LoginForm extends Composite {
 	    table.getFlexCellFormatter().setColSpan(1,0,2);
 	}
 	
-	private void setupButton(final DeckPanel deck) {
+	private void setupButton() {
 		login_b = new Button();
 		login_b.addClickHandler(new ClickHandler() {
 	    	public void onClick(ClickEvent event) {
@@ -88,7 +87,7 @@ public class LoginForm extends Composite {
 	    		else {
 	    			//Send request for register
 	    			try {
-						serverRegister(nick,pass,deck);
+						serverRegister(nick,pass);
 					} catch (WWWordzException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -98,23 +97,35 @@ public class LoginForm extends Composite {
 	    });
 	}
 	
-	private void serverRegister(final String nick, String pass, final DeckPanel deck) throws WWWordzException {
+	private void serverRegister(final String nick, String pass) throws WWWordzException {
 		Services.getService().register(nick,pass, new AsyncCallback<Long>() {
 			public void onFailure(Throwable caught) {
-				Window.alert("ERROR:\n"+caught.getMessage());
-				
+				Services.getService().timeToNextPlay(new AsyncCallback<Long>() {
+					@Override
+					public void onFailure(Throwable c) {
+						Window.alert("ERROR:\n"+c.getMessage());
+					}
+					@Override
+					public void onSuccess(Long result) {
+						login_b.setEnabled(true);
+						Window.alert("ERROR:\n Try again in "+ ((double)result/1000.0) + " seconds");
+					}
+					
+				});
 			}
 
 			public void onSuccess(Long result) {
+				//result is time for next round
+				login_b.setEnabled(false);
 				Timer t = new Timer() {
-			      @Override
-			      public void run() {
-			    	  RootPanel.get("user_info").add(new UserInfo(nick));
-			    	  deck.showWidget(1);
-			      }
-			    };
-
-			    t.schedule(result.intValue());
+					@Override
+					public void run() {
+						Services.addNick(nick);
+						RootPanel.get("user_info").add(new UserInfo(nick));
+						RootPanel.get("deck_panel").add(new GameStage());
+					}
+				};
+				t.schedule(result.intValue());
 			}
 		});
 	}

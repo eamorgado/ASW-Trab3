@@ -24,7 +24,7 @@ public class UserInfo extends Composite {
 	}
 	
 	private void setupUser(String nick) {
-		user = new Label("User: " + nick);
+		user = new Label("Nick: " + nick);
 	}
 
 }

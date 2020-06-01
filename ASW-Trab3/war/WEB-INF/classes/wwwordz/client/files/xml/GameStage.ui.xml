@@ -2,8 +2,90 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	
+	.page{
+		font-size: large;
+		margin: auto;
+		height:90%;
+	}
+	.scrollHorizontal{
+        overflow:scroll;
+    }
+    .scrollVertical{
+        overflow-y: scroll;
+    }
 	</ui:style>
-	<g:HTMLPanel>
+	<g:HTMLPanel styleName="{style.page}">
+		<div aling="centre">
+			<div style="font-size: x-large;">
+				<g:VerticalPanel ui:field="panel"></g:VerticalPanel>
+			</div>
+			<div>
+				Sequence:
+				<g:HorizontalPanel ui:field="sequence" styleName="{style.scrollHorizontal}"/>
+			</div>
+			<br></br>
+			<div style="height:10%; margin: 5% 0 5% 0">
+					Words:
+					<g:VerticalPanel ui:field="words" styleName="{style.scrollVertical}"/>
+			</div>
+			<div>
+				Messages:
+				<g:VerticalPanel ui:field="messages" styleName="{style.scrollVertical}"/>
+			</div>
+			
+			<div>
+				<p>
+					Select a cell to start/add word.
+					<br></br>
+				</p>
+				<p>
+					Double click to submit word
+					<br></br>
+					<small>Once a word is submitted that sequence is no longer available.</small>
+				</p>
+			</div>
+			
+			<!-- <table style="width:100%">
+				<tr>
+					<th>Selected words: </th>
+					<td>
+						<g:ScrollPanel ui:field="scroll_sequence" addStyleNames="style.scrollHorizontal">
+						   	<g:HorizontalPanel ui:field="sequence" />
+						</g:ScrollPanel>
+					</td>
+				</tr>
+				<tr>
+					<th style="width:20%">Submitted words</th>
+					<th style="width:70%">Puzzle</th>
+					<th style="width:10%">Messages</th>
+				</tr>
+				<tr>
+					<td style="width:20%">
+						<g:ScrollPanel ui:field="scroll_words" addStyleNames="style.scrollVertical">
+					   		<g:VerticalPanel ui:field="words" />
+						</g:ScrollPanel>
+					</td>
+					<td style="width:700%">
+						<g:VerticalPanel ui:field="panel"></g:VerticalPanel>
+					</td>
+					<td style="width:10%">
+						<g:ScrollPanel ui:field="scroll_messages" addStyleNames="style.scrollVertical">
+					   		<g:VerticalPanel ui:field="messages" />
+						</g:ScrollPanel>
+					</td>
+				</tr>
+				<tr>
+					<p>
+						Select a cell to start/add word.
+						<br></br>
+					</p>
+					<p>
+						Double click to submit word
+						<br></br>
+						<small>Once a word is submitted that sequence is no longer available.</small>
+					</p>
+				</tr>
+			</table>-->
+		</div>
 	</g:HTMLPanel>
 </ui:UiBinder> 

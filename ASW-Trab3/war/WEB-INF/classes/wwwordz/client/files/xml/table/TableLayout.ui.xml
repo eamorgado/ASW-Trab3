@@ -1,0 +1,20 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.table-style {		
+		padding-bottom: 5%;
+		border: 2xp solid grey;
+		font-size: x-large;
+		color: black;
+	}
+	.table-page-style{
+		font-size: large;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.table-page-style}">
+		<div align="centre">
+			<g:FlexTable ui:field="table" styleName="{style.table-style}"></g:FlexTable>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

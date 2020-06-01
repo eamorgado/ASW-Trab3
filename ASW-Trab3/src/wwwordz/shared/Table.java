@@ -21,12 +21,13 @@ import wwwordz.shared.Positions;
 public class Table implements Iterable<Cell>, Serializable{
 	private static final long serialVersionUID = 1L;
 	private static final int SIZE = 4;
-	private static Cell[][] table;
+	private Cell[][] table;
 	
 	/**
 	 * Nested class representing enclosing table
 	 */
-	public static class Cell{
+	public static class Cell implements Serializable{
+		private static final long serialVersionUID = 1L;
 		private int row, column;
 		private char letter;
 		
@@ -91,7 +92,7 @@ public class Table implements Iterable<Cell>, Serializable{
 		 * @param char letter
 		 * @return void
 		 */
-		public void setLetter(char letter) {this.letter = letter;}
+		public void setLetter(char lett) {this.letter = lett;}
 		
 		@Override
 		public int hashCode() {
@@ -107,7 +108,7 @@ public class Table implements Iterable<Cell>, Serializable{
 				return false;
 			}
 			Cell other = (Cell) obj;
-			return column == other.column && letter == other.letter && row == other.row;
+			return column == other.getColumn() && letter == other.getLetter() && row == other.getRow();
 		}
 		
 		@Override
@@ -119,7 +120,7 @@ public class Table implements Iterable<Cell>, Serializable{
 	/**
 	 * Iterator over cells in the table
 	 */
-	private static class CellIterator implements Iterator<Table.Cell>{
+	private class CellIterator implements Iterator<Table.Cell>{
 		private int row;
 		private int column;
 		
@@ -260,20 +261,23 @@ public class Table implements Iterable<Cell>, Serializable{
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Table other = (Table) obj;
-		for(int r = 1; r <= SIZE; r++)
-			for(int c = 1; c <= SIZE; c++)
-				if(!this.getCell(r,c).equals(other.getCell(r,c)))
-					return false;
+		Table other = (Table) obj;		
+		Iterator<Cell> it_this = this.iterator();
+		Iterator<Cell> it_other = other.iterator();
+		
+		while(it_this.hasNext() && it_other.hasNext()) {
+			if(!(it_this.next().equals(it_other.next())))
+				return false;
+		}
 		return true;
-		//return Arrays.deepEquals(table, other.table);
 	}
 	
 	@Override
 	public String toString() {
 		String s = "";
-		for(Cell[] cells : table) {
-			for(Cell cell : cells) s += cell.getLetter();
+		for(int r = 1; r <= SIZE; r++) {
+			for(int c = 1; c <= SIZE; c++) 
+				s += Character.toString(this.getCell(r,c).getLetter());
 			s += '\n';
 		}
 		return s;

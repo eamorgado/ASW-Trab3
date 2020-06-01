@@ -1,5 +1,7 @@
 package wwwordz.shared;
 
+import java.io.Serializable;
+
 import wwwordz.shared.Table.Cell;
 
 /**
@@ -9,7 +11,7 @@ import wwwordz.shared.Table.Cell;
  * @author Ângelo Gomes (up201703990)
  * @since April 2020
  */
-enum Positions{
+enum Positions implements Serializable{
 	UP(1,0), UP_RIGHT(1,1),
 	RIGHT(0,1),
 	DOWN_RIGHT(-1,1), DOWN(-1,0), DOWN_LEFT(-1,-1),
@@ -17,6 +19,7 @@ enum Positions{
 	UP_LEFT(1,-1);
 	
 	private int row, column;
+	Positions() {}
 	private Positions(int row,int column) {
 		this.row = row;
 		this.column = column;

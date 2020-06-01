@@ -10,6 +10,7 @@ import wwwordz.game.Manager;
 import wwwordz.game.Round;
 import wwwordz.shared.Configs;
 import wwwordz.shared.Puzzle;
+import wwwordz.shared.Puzzle.Solution;
 import wwwordz.shared.Rank;
 import wwwordz.shared.WWWordzException;
 
@@ -29,30 +30,36 @@ public class ManagerServiceImpl extends RemoteServiceServlet implements ManagerS
 		Round.setReportStageDuration(Configs.REPORT_STAGE_DURATION);		
 	}
 	
+	private Manager manager = Manager.getInstance();
 	
 	@Override
 	public Puzzle getPuzzle() throws WWWordzException {
-		return Manager.getInstance().getPuzzle();
+		Puzzle p = manager.getPuzzle();
+		System.out.print(p.getTable().toString());
+		System.out.println("Solutions:");
+		for(Solution s : p.getSolutions())
+			System.out.println(s.getWord());
+		return p;
 	}
 
 	@Override
 	public List<Rank> getRanking() throws WWWordzException {
-		return Manager.getInstance().getRanking();
+		return manager.getRanking();
 	}
 
 	@Override
 	public long register(String nick, String password) throws WWWordzException {
-		return Manager.getInstance().register(nick,password);
+		return manager.register(nick,password);
 	}
 
 	@Override
 	public void setPoints(String nick, int points) throws WWWordzException {
-		Manager.getInstance().setPoints(nick,points);
+		manager.setPoints(nick,points);
 	}
 
 	@Override
 	public long timeToNextPlay() {
-		return Manager.getInstance().timeToNextPlay();
+		return manager.timeToNextPlay();
 	}
 
 }

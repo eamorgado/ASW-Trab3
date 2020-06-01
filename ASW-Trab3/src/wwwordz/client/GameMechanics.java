@@ -15,6 +15,7 @@ public class GameMechanics {
 	private Map<String,Solution> valid_solutions;
 	private List<String> clicked;
 	private List<String> cells;
+	private int points;
 	
 	private static GameMechanics instance;
 	
@@ -31,6 +32,7 @@ public class GameMechanics {
 	
 	
 	public boolean addPuzzle(Puzzle p) {
+		instance.points = 0;
 		instance.clearValid();
 		instance.clearClicked();
 		instance.puzzle = p;
@@ -100,14 +102,15 @@ public class GameMechanics {
 	public int submitSolution() {
 		//get Id
 		String id = instance.getWordId();
+		instance.clearClicked();
 		if(id != null && instance.isSolutionValid(id)) {
 			//get points
-			int points = instance.getPoints(id);
+			int p = instance.getPoints(id);
 			//clear input sequence
-			instance.clearClicked();
 			//remove solution from valid/available
 			instance.removeSolution(id);
-			return points;
+			instance.points += p;
+			return p;
 		}
 		return -1;
 	}
@@ -118,5 +121,9 @@ public class GameMechanics {
 	
 	public Table getTable() {
 		return instance.puzzle.getTable();
+	}
+	
+	public int getTotalPoints() {
+		return instance.points;
 	}
 }
